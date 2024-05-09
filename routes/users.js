@@ -7,10 +7,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/login', function(req, res, next) {
-  res.render('login', 
-  { title: 'Login',
-    message: 'Silahkan isi kolom dibawah'
-  } ); 
+  res.render('userLogin', { title: 'Login' });
 });
+
 
 module.exports = router;
