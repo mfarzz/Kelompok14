@@ -1,14 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile Page</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+  }
+  .container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  .profile-picture {
+    width: 100px;
+    height: 100px;
+    background-color: #888;
+    border-radius: 50%;
+    position: relative;
+  }
+  .status-indicator {
+    width: 30px;
+    height: 30px;
+    background-color: #0f0;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border: 5px solid #fff;
+  }
+  .info {
+    margin-left: 130px;
+  }
+  .info div {
+    margin-bottom: 10px;
+    color: #666;
+  }
+  .info-bar {
+    background-color: #ddd;
+    height: 10px;
+    width: 200px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+  }
+  .edit-button {
+    background-color: #0f0;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+</style>
 </head>
 <body>
-    <h1>ini home</h1>
-    <form action="/auth/logout" method="post">
-        <button type="submit">logout</button>
-    </form>
+<div class="container">
+  <div class="profile-picture">
+    <div class="status-indicator"></div>
+  </div>
+  <div class="info">
+    <div>NIM <span class="info-bar"></span></div>
+    <div>Nama <span class="info-bar"></span></div>
+    <div>Fakultas <span class="info-bar"></span></div>
+    <div>Email <span class="info-bar"></span></div>
+    <div>Alamat <span class="info-bar"></span></div>
+    <div>TTL <span class="info-bar"></span></div>
+    <div>Agama <span class="info-bar"></span></div>
+    <div>Jenis Kelamin <span class="info-bar"></span></div>
+  </div>
+  <button class="edit-button">Edit Profile</button>
+  <form action="/auth/logout" method="post">
+    <button type="submit">logout</button>
+</form>
+</div>
 </body>
 </html>
