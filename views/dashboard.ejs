@@ -1,0 +1,28 @@
+<% include layouts/header.ejs %>
+
+<% if (userLoggedIn) { %>
+<div class="container alert alert-success mt-5">
+    <h1>Welcome to the Dashboard</h1>
+    <p>Hello, <%= user.username %>!</p>
+</div>
+
+<% } else { %>
+    <div class="container alert alert-danger mt-5">
+        <p>You are not logged in.</p>
+    </div>
+    <!-- Tampilkan pesan jika pengguna tidak login -->
+<% } %>
+
+<div class="container mt-5 card text-center">
+
+    <h1 class="text-center">Pendaftaran Kelas Antar Prodi</h1>
+    <p class="lead text-center">Selamat datang di sistem pendaftaran kelas antar program studi. Silakan daftar untuk mengikuti kelas-kelas yang tersedia.</p>
+    <!-- Tampilkan konten dashboard jika pengguna login -->
+</div>
+
+
+<br><br>
+<br><br>
+<br><br>
+
+<% include layouts/footer.ejs %>
