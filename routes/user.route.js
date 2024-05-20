@@ -7,9 +7,9 @@ const verifyTokenAndRole = require('../middleware/verifyTokenAndRole');
 //   res.render('notfound');
 // });
 
-router.get('/home',verifyTokenAndRole('user'), function(req, res, next) {
-  res.render('user/home');
-});
+router.get('/home', (req, res) => {
+  res.render('user/home'); // Pastikan jalur ini sesuai dengan lokasi sebenarnya dari file tampilan
+}); 
 
 // router.post('/userLogin', verifyTokenAndRole(user), user.checklogin);
 
