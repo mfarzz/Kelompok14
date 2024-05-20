@@ -15,70 +15,107 @@
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
+    margin: auto;
+    width: 50%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
   }
   .profile-picture {
     width: 100px;
     height: 100px;
-    background-color: #888;
+    background-color: #ccc;
     border-radius: 50%;
     position: relative;
+    overflow: hidden;
+    margin-right: 20px;
   }
-  .status-indicator {
-    width: 30px;
-    height: 30px;
-    background-color: #0f0;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    border: 5px solid #fff;
+  .details {
+    width: 100%;
   }
-  .info {
-    margin-left: 130px;
-  }
-  .info div {
+  .details div {
     margin-bottom: 10px;
-    color: #666;
   }
-  .info-bar {
-    background-color: #ddd;
-    height: 10px;
-    width: 200px;
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 10px;
+  .info-input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    pointer-events: none; /* To make it non-editable */
   }
   .edit-button {
-    background-color: #0f0;
+    background-color: #4CAF50;
     color: #fff;
     border: none;
     padding: 10px 20px;
     text-align: center;
-    display: inline-block;
-    margin-top: 20px;
+    display: block;
+    width: 100%;
     cursor: pointer;
+    margin-top: 20px;
+  }
+  input[type="file"] {
+    display: none;
+  }
+  label.profile-upload {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    line-height: 100px;
+    text-align: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .profile-picture:hover label.profile-upload {
+    opacity: 1;
   }
 </style>
 </head>
 <body>
 <div class="container">
-  <div class="profile-picture">
-    <div class="status-indicator"></div>
+  <div class="header">
+    <div class="profile-picture">
+      <img id="profileImg" src="#" alt="No Image" style="width: 100%; height: 100%;">
+      <label for="fileInput" class="profile-upload">Change</label>
+      <input id="fileInput" type="file" onchange="loadFile(event)">
+    </div>
+    <div class="details">
+      <div><input type="text" class="info-input" value="NIM" readonly></div>
+      <div><input type="text" class="info-input" value="Nama" readonly></div>
+    </div>
   </div>
-  <div class="info">
-    <div>NIM <span class="info-bar"></span></div>
-    <div>Nama <span class="info-bar"></span></div>
-    <div>Fakultas <span class="info-bar"></span></div>
-    <div>Email <span class="info-bar"></span></div>
-    <div>Alamat <span class="info-bar"></span></div>
-    <div>TTL <span class="info-bar"></span></div>
-    <div>Agama <span class="info-bar"></span></div>
-    <div>Jenis Kelamin <span class="info-bar"></span></div>
+  <div class="details">
+    <div><input type="text" class="info-input" value="Fakultas" readonly></div>
+    <div><input type="text" class="info-input" value="Email" readonly></div>
+    <div><input type="text" class="info-input" value="Alamat" readonly></div>
+    <div><input type="text" class="info-input" value="TTL" readonly></div>
+    <div><input type="text" class="info-input" value="Agama" readonly></div>
+    <div><input type="text" class="info-input" value="Jenis Kelamin" readonly></div>
   </div>
   <button class="edit-button">Edit Profile</button>
   <form action="/auth/logout" method="post">
-    <button type="submit">logout</button>
-</form>
+    <button type="submit" style="width: 100%;">Logout</button>
+  </form>
 </div>
+
+<script>
+  var loadFile = function(event) {
+    var output = document.getElementById('profileImg');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+      URL.revokeObjectURL(output.src) // free memory
+    }
+  };
+</script>
 </body>
 </html>
