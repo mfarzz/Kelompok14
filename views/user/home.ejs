@@ -66,14 +66,14 @@
     <div class="status-indicator"></div>
   </div>
   <div class="info">
-    <div>NIM <span class="info-bar"></span></div>
-    <div>Nama <span class="info-bar"></span></div>
-    <div>Fakultas <span class="info-bar"></span></div>
-    <div>Email <span class="info-bar"></span></div>
-    <div>Alamat <span class="info-bar"></span></div>
+    <div>NIM <span class="info-bar"><%= user.mahasiswa.nim %></span></div>
+    <div>Nama <span class="info-bar"><%= user.mahasiswa.nama %></span></div>
+    <div>Fakultas <span class="info-bar"><%= user.mahasiswa.fakultas %></span></div>
+    <div>Email <span class="info-bar"><%= user.mahasiswa.email %></span></div> 
+    <div>Alamat <span class="info-bar"><%= user.mahasiswa.alamat %></span></div>
     <div>TTL <span class="info-bar"></span></div>
-    <div>Agama <span class="info-bar"></span></div>
-    <div>Jenis Kelamin <span class="info-bar"></span></div>
+    <div>Agama <span class="info-bar"><%= user.mahasiswa.agama %></span></div>
+    <div>Jenis Kelamin <span class="info-bar"><%= user.mahasiswa.jeniskelamin %></span></div>
   </div>
   <button class="edit-button">Edit Profile</button>
   <form action="/auth/logout" method="post">

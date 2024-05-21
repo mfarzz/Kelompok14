@@ -11,12 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
         mahasiswa.belongsTo(models.User, {
-        foreignKey: 'email',
-        targetKey: 'email'
+        foreignKey: 'userid'
       });
     }
   }
   mahasiswa.init({
+    userid: {
+      type: DataTypes.INTEGER,
+    },
     nim: {
       type: DataTypes.STRING,
       unique :true,
@@ -36,10 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       unique: true,
-      references: {
-        model: 'Users',
-        key: 'email'
-      }
+      primaryKey: true,
     },
     alamat: {
       type: DataTypes.STRING,

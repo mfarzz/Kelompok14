@@ -11,8 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
         User.hasOne(models.mahasiswa, {
-        foreignKey: 'email',
-        sourceKey: 'email'
+        foreignKey: 'userid'
       });
     }
   }
@@ -20,7 +19,6 @@ module.exports = (sequelize, DataTypes) => {
     email:{
       type: DataTypes.STRING,
       unique :true,
-      primaryKey: true,
     },
     password: {
         type: DataTypes.STRING
