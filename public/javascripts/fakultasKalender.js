@@ -14,14 +14,14 @@ closeModalButton.addEventListener("click", () => {
 	document.body.classList.remove("overflow-hidden");
 });
 
-function openModal(kodeProdi) {
-	var modal = document.getElementById("modal" + kodeProdi);
+function openModal(kodeKalender) {
+	var modal = document.getElementById("modal" + kodeKalender);
 	modal.style.display = "block";
 }
 
 // Function to close the modal
-function closeModal(kodeProdi) {
-	var modal = document.getElementById("modal" + kodeProdi);
+function closeModal(kodeKalender) {
+	var modal = document.getElementById("modal" + kodeKalender);
 	modal.style.display = "none";
 }
 
