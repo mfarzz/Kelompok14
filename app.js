@@ -4,18 +4,33 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session')
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
+var sequelize = require('./models').sequelize;
 
 var indexRouter = require('./routes/index');
 var fakultasRouter = require('./routes/fakultas.route');
 var jurusanRouter = require('./routes/jurusan.route');
 var authRouter = require('./routes/auth.route');
+var jurusanMatakuliahRoute = require('./routes/jurusanMataKuliah.route');
 
 var app = express();
+
+var sessionStore = new SequelizeStore({
+  db: sequelize,
+  tableName: 'Sessions', 
+  checkExpirationInterval: 15 * 60 * 1000,
+  expiration: 24 * 60 * 60 * 1000
+});
+
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
-  saveUninitialized: true,
-}))
+  saveUninitialized: false,
+  store: sessionStore,
+  cookie: { maxAge: 24 * 60 * 60 * 1000 }
+}));
+
+sequelize.sync();
 
 app.set('views',
   [
@@ -35,6 +50,7 @@ app.use('/', indexRouter);
 app.use('/fakultas', fakultasRouter)
 app.use('/prodi', jurusanRouter)
 app.use('/auth', authRouter)
+app.use('/prodi/matakuliah', jurusanMatakuliahRoute)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

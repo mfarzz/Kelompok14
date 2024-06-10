@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     class Prodi extends Model {
         static associate(models) {
             Prodi.belongsTo(models.fakultas, { foreignKey: 'kode_fakultas', targetKey: 'email'});
+            Prodi.hasMany(models.Matkul, { foreignKey: 'kode_prodi'});
         }
     }
     Prodi.init({

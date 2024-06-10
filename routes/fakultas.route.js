@@ -4,7 +4,7 @@ const authController = require('../controller/auth.controlller');
 const { isAuthenticated, isAuthorized} = require('../middleware/session.middleware')
 
 router.get('/',isAuthenticated,isAuthorized('fakultas'),function(req, res) {
-    res.render('berandaFakultas');
+    res.render('berandaFakultas', { userEmail: req.session.userId });
 });
 
 module.exports = router;
