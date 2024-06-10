@@ -42,8 +42,42 @@ const logout = async (req, res) => {
 	res.redirect("/login");
 };
 
+const changePassword = async (req, res) => {
+	const { email, password } = req.body;
+	try {
+		let user = await fakultas.findOne({ where: { email } });
+		if (user) {
+			const hashedPassword = await bcrypt.hash(password, 10);
+			await fakultas.update(
+				{ password_fakultas: hashedPassword },
+				{ where: { email } }
+			);
+
+			return res.redirect("/login");
+		}
+
+		user = await prodi.findOne({ where: { email_prodi: email } });
+		if (user) {
+			if (user) {
+				const hashedPassword = await bcrypt.hash(password, 10);
+
+				await prodi.update(
+					{ password_prodi: hashedPassword },
+					{ where: { email } }
+				);
+
+				return res.redirect("/login");
+			}
+		}
+	} catch (error) {
+		console.error(error);
+		res.status(500).send("Terjadi kesalahan pada server");
+	}
+};
+
 module.exports = {
 	login,
 	logout,
 	hashPassword,
+	changePassword,
 };
