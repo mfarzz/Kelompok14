@@ -5,6 +5,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var session = require("express-session");
 var bodyparser = require("body-parser");
+const fs = require("fs");
 
 var indexRouter = require("./routes/index");
 var fakultasRouter = require("./routes/fakultas.route");
@@ -30,7 +31,7 @@ app.set("view engine", "ejs");
 app.use(bodyparser.json());
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -38,6 +39,12 @@ app.use("/", indexRouter);
 app.use("/fakultas", fakultasRouter);
 app.use("/prodi", jurusanRouter);
 app.use("/auth", authRouter);
+
+const uploadDir = path.join(__dirname, "public", "uploads");
+
+if (!fs.existsSync(uploadDir)) {
+	fs.mkdirSync(uploadDir, { recursive: true });
+}
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
