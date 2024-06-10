@@ -10,19 +10,11 @@ const isAuthorized = (role) => {
         if (req.session.role === role) {
             return next();
         }
-        res.redirect('/');
+    res.redirect('/');
     };
-};
-
-const sessionChecker = (req, res, next) => {
-    if (req.session.userId) {
-        res.locals.userEmail = req.session.userId;
-    }
-    next();
 };
 
 module.exports = {
     isAuthenticated,
-    isAuthorized,
-    sessionChecker
+    isAuthorized
 }
