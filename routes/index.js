@@ -10,4 +10,8 @@ router.get("/login", function (req, res) {
 	res.render("login");
 });
 
+router.get("/change-password", function (req, res) {
+	res.render("change-password");
+});
+
 module.exports = router;
