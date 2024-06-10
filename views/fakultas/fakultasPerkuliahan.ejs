@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<link
+			rel="stylesheet"
+			href="/stylesheets/style.css"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Poppins"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="/stylesheets/fakultasPerkuliahan.css"
+		/>
+		<title>Perkuliahan</title>
+	</head>
+
+	<body>
+		<div class="flex h-screen bg-black/50">
+			<div class="bg-white w-1/4 flex flex-col my-5 mx-4 rounded-xl">
+				<div class="flex justify-center flex-col text-center my-7">
+					<div
+						class="bg-gray-500 rounded-full w-36 h-36 border-2 mx-auto border-white"
+					></div>
+					<h1 class="underline text-xl">fti@unand.ac.id</h1>
+				</div>
+				<div>
+					<ul class="flex flex-col">
+						<li class="block px-4">
+							Data Master
+							<ul class="flex flex-col m-2">
+								<li class="flex justify-between">
+									<a href="/fakultas">Manajemen Jurusan</a>
+								</li>
+								<li class="flex justify-between">
+									<a href="/fakultas/kalender-akademik"
+										>Manajemen Kalender Akademik</a
+									>
+								</li>
+								<li class="flex justify-between">
+									<a href="/fakultas/pemberitahuan">Manajemen Pemberitahuan</a>
+								</li>
+							</ul>
+						</li>
+						<li class="block py-2 px-4">
+							<a href="/fakultas/data-dosen">Data Dosen</a>
+						</li>
+						<li class="block py-2 px-4">
+							<a href="/fakultas/mata-kuliah">Data Mata Kuliah</a>
+						</li>
+						<li class="block py-2 px-4">
+							<a href="/fakultas/perkuliahan">Data Perkuliahan</a>
+						</li>
+					</ul>
+					<a
+						href="/"
+						class="block text-red-600 px-4 mt-32 text-right"
+						>Keluar</a
+					>
+				</div>
+			</div>
+			<div class="flex-1 bg-white mx-4 my-5 rounded-xl">
+				<div class="flex justify-between items-center p-4 my-3">
+					<h1 class="text-3xl">Manajemen Kalender Akademik</h1>
+					<span class="inline-flex justify-center items-center">
+						<select
+							class="px-8 py-0.5 block w-full text-sm bg-black text-white rounded-full"
+						>
+							<option selected="">Filter</option>
+						</select>
+					</span>
+				</div>
+				<div class="p-4">
+					<div class="flex flex-col">
+						<div class="-m-1.5 overflow-x-auto">
+							<div class="p-1.5 min-w-full inline-block align-middle">
+								<div class="border rounded-lg overflow-hidden border-black">
+									<table class="min-w-full divide-y divide-black">
+										<thead class="w-96">
+											<tr class="divide-x divide-black">
+												<th
+													scope="col"
+													class="p-3 text-center text-sm font-medium uppercase"
+												>
+													Kode Perkuliahan
+												</th>
+												<th
+													scope="col"
+													class="p-3 text-center text-xs font-medium uppercase"
+												>
+													Kode Mata Kuliah
+												</th>
+												<th
+													scope="col"
+													class="p-3 text-center text-xs font-medium uppercase"
+												>
+													Nama Kelas
+												</th>
+												<th
+													scope="col"
+													class="p-3 text-center text-xs font-medium uppercase"
+												>
+													Ruang
+												</th>
+												<th
+													scope="col"
+													class="p-3 text-center text-xs font-medium uppercase"
+												>
+													Dosen Pengampu
+												</th>
+												<th
+													scope="col"
+													class="p-3 text-center text-xs font-medium uppercase"
+												>
+													Kuota
+												</th>
+												<th
+													scope="col"
+													class="p-3 text-center text-xs font-medium uppercase"
+												>
+													Semester
+												</th>
+												<th
+													scope="col"
+													class="p-3 text-center text-xs font-medium uppercase"
+												>
+													TA
+												</th>
+												<th
+													scope="col"
+													class="p-3 text-center text-xs font-medium uppercase"
+												>
+													Jadwal
+												</th>
+												<th
+													scope="col"
+													class="p-3 text-center text-xs font-medium uppercase"
+												>
+													Jurusan
+												</th>
+											</tr>
+										</thead>
+										<tbody class="divide-y divide-gray-200">
+											<% perkuliahan.forEach((perkuliah) => { %>
+											<tr>
+												<td
+													class="px-3 py-4 whitespace-nowrap text-sm font-medium text-center"
+												>
+													<%= perkuliah.kode_perkuliahan %>
+												</td>
+												<td
+													class="px-3 py-4 whitespace-nowrap text-sm text-center"
+												>
+													<%= perkuliah.kode_matkul %>
+												</td>
+												<td
+													class="px-3 py-4 whitespace-nowrap text-sm text-center"
+												>
+													<%= perkuliah.nama_kelas %>
+												</td>
+												<td
+													class="px-3 py-4 whitespace-nowrap text-sm text-center"
+												>
+													<%= perkuliah.ruang_kuliah %>
+												</td>
+												<td
+													class="px-3 py-4 whitespace-nowrap text-sm text-center"
+												>
+													Pak Husnil
+												</td>
+												<td
+													class="px-3 py-4 whitespace-nowrap text-sm text-center"
+												>
+													<%= perkuliah.kuota %>
+												</td>
+												<td
+													class="px-3 py-4 whitespace-nowrap text-sm text-center"
+												>
+													<%= perkuliah.semester %>
+												</td>
+												<td
+													class="px-3 py-4 whitespace-nowrap text-sm text-center"
+												>
+													<%= perkuliah.tahun_ajaran %>
+												</td>
+												<td
+													class="px-3 py-4 whitespace-nowrap text-sm text-center"
+												>
+													<%= perkuliah.jadwal_kuliah %>
+												</td>
+												<td
+													class="px-3 py-4 whitespace-nowrap text-center text-sm"
+												>
+													<%= perkuliah.matkul.prodi.nama_prodi %>
+												</td>
+											</tr>
+											<% }); %>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div
+				id="myModal"
+				class="fixed z-10 inset-0 overflow-y-auto hidden"
+			>
+				<div class="flex items-center justify-center min-h-screen">
+					<div class="fixed inset-0 overflow-hidden">
+						<div class="flex items-center justify-center min-h-screen">
+							<div
+								class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
+							></div>
+							<div
+								class="relative bg-white rounded-lg w-full max-w-lg p-10 mx-auto"
+							>
+								<div class="flex justify-between items-center">
+									<h2 class="text-2xl font-bold mx-auto">Tambah Jurusan</h2>
+									<button
+										id="closeModal"
+										class="text-gray-600 hover:text-gray-800 focus:outline-none"
+									>
+										&times;
+									</button>
+								</div>
+								<div class="p-4">
+									<div class="max-w-sm space-y-3">
+										<form
+											method="POST"
+											action="/fakultas/tambah-prodi"
+											class="space-y-3"
+										>
+											<input
+												type="text"
+												class="py-3 px-5 block w-full rounded-full border border-black"
+												id="kode_prodi"
+												name="kode_prodi"
+												placeholder="Kode Jurusan"
+											/>
+											<input
+												type="text"
+												class="py-3 px-5 block w-full rounded-full border border-black"
+												id="nama_prodi"
+												name="nama_prodi"
+												placeholder="Nama Jurusan"
+												required
+											/>
+											<input
+												type="text"
+												class="py-3 px-5 block w-full rounded-full border border-black"
+												id="akreditasi"
+												name="akreditasi"
+												placeholder="Akreditasi"
+												required
+											/>
+											<input
+												type="text"
+												class="py-3 px-5 block w-full rounded-full border border-black"
+												id="email_prodi"
+												name="email_prodi"
+												placeholder="Email Jurusan"
+												required
+											/>
+											<input
+												type="password"
+												class="py-3 px-5 block w-full rounded-full m border border-black"
+												id="password_prodi"
+												name="password_prodi"
+												placeholder="Password"
+												required
+											/>
+											<button
+												class="py-3 px-5 block w-full rounded-full border bg-black text-white mt-20"
+												type="submit"
+											>
+												Tambah
+											</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

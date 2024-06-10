@@ -1,46 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../stylesheets/jurasanMataKuliah.css">
-    <title>Jurusan</title>
-</head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<link
+			rel="stylesheet"
+			href="../stylesheets/jurasanMataKuliah.css"
+		/>
+		<title>Jurusan</title>
+	</head>
 
-<body>
-    <div class="menu">
-        <div class="profile">
-            <div class="profile-icon">
-                <img src="profile_icon.png" alt="Profile Icon">
-            </div>
-            <div class="email">si@fti.unand.ac.id</div>
-        </div>
-        <div class="detail-menu">
-            <ul>
-                <li><a href="">Manajemen Mata Kuliah</a></li>
-                <li><a href="">Manajemen Dosen</a></li>
-                <li><a href="">Manajemen Perkuliahan</a></li>
-            </ul>
-        </div>
-        <div class="keluar" id="keluarBtn">Keluar</div>
-    </div>
-    <div class="hasil">
-        <div class="header">
-            <h1>Manajemen Mata Kuliah</h1>
-            <button class="add-btn">+</button>
-        </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Kode Mata Kuliah</th>
-                    <th>Nama Mata Kuliah</th>
-                    <th>Semester</th>
-                    <th>TA</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-</body>
-<script src="../javascripts/jurusanMataKuliah.js"></script>
+	<body>
+		<div class="menu">
+			<div class="profile">
+				<div class="profile-icon">
+					<img
+						src="profile_icon.png"
+						alt="Profile Icon"
+					/>
+				</div>
+				<div class="email">si@fti.unand.ac.id</div>
+			</div>
+			<div class="detail-menu">
+				<ul>
+					<li><a href="">Manajemen Mata Kuliah</a></li>
+					<li><a href="">Manajemen Dosen</a></li>
+					<li><a href="">Manajemen Perkuliahan</a></li>
+				</ul>
+			</div>
+			<div
+				class="keluar"
+				id="keluarBtn"
+			>
+				Keluar
+			</div>
+		</div>
+		<div class="hasil">
+			<div class="header">
+				<h1>Manajemen Mata Kuliah</h1>
+				<button class="add-btn">+</button>
+			</div>
+			<table>
+				<thead>
+					<tr>
+						<th>Kode Mata Kuliah</th>
+						<th>Nama Mata Kuliah</th>
+						<th>Semester</th>
+						<th>TA</th>
+						<th>Aksi</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<div
+			id="myModal"
+			class="fixed z-10 inset-0 overflow-y-auto"
+		>
+			<div class="flex items-center justify-center min-h-screen">
+				<div class="fixed inset-0 overflow-hidden">
+					<div class="flex items-center justify-center min-h-screen">
+						<div
+							class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
+						></div>
+						<div
+							class="relative bg-white rounded-lg w-full max-w-lg p-10 mx-auto"
+						>
+							<div class="flex justify-between items-center">
+								<h2 class="text-2xl font-bold mx-auto">Tambah Mata Kuliah</h2>
+								<button
+									id="closeModal"
+									class="text-gray-600 hover:text-gray-800 focus:outline-none"
+								>
+									&times;
+								</button>
+							</div>
+							<div class="p-4">
+								<div class="max-w-sm space-y-3">
+									<input
+										type="text"
+										class="py-3 px-5 block w-full rounded-full border border-black"
+										placeholder="Kode Mata Kuliah"
+										id="kode_matkul"
+									/>
+									<input
+										type="text"
+										class="py-3 px-5 block w-full rounded-full border border-black"
+										placeholder="Nama Mata Kuliah"
+										id="nama_matkul"
+									/>
+									<input
+										type="number"
+										class="py-3 px-5 block w-full rounded-full border border-black"
+										placeholder="Semester"
+										id="semester"
+									/>
+									<input
+										type="text"
+										class="py-3 px-5 block w-full rounded-full border border-black"
+										placeholder="Tahun Ajaran"
+										id="tahun_ajaran"
+									/>
+
+									<button
+										class="py-3 px-5 block w-full rounded-full border bg-black text-white"
+										id="submitData"
+									>
+										Submit
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="../node_modules/preline/dist/preline.js"></script>
+	<script src="../javascripts/jurusanMataKuliah.js"></script>
 </html>
