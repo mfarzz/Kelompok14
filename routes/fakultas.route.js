@@ -3,11 +3,13 @@ var router = express.Router();
 const fakultasController = require("../controller/fakultas.controller");
 const prodiController = require("../controller/prodi.controller");
 const perkuliahanController = require("../controller/perkuliahan.controller");
+const kalenderController = require("../controller/kalender.controller");
 const authController = require("../controller/auth.controlller");
 const {
 	isAuthenticated,
 	isAuthorized,
 } = require("../middleware/session.middleware");
+const upload = require("../middleware/multer.middleware");
 
 router.get("/", isAuthenticated, isAuthorized("fakultas"), async (req, res) => {
 	const prodi = await prodiController.getProdi(req.session.userId);
@@ -63,7 +65,8 @@ router.get(
 	isAuthenticated,
 	isAuthorized("fakultas"),
 	async (req, res) => {
-		res.render("fakultasKalenderAkademik");
+		const kalender = await kalenderController.getKalender(req.session.userId);
+		res.render("fakultasKalenderAkademik", { kalender });
 	}
 );
 
@@ -77,6 +80,39 @@ router.get(
 		);
 		console.log(perkuliahan);
 		res.render("fakultasPerkuliahan", { perkuliahan });
+	}
+);
+
+router.post(
+	"/tambah-kalender",
+	isAuthenticated,
+	isAuthorized("fakultas"),
+	upload.single("file_kalender"),
+	async (req, res) => {
+		const newKalender = await kalenderController.newKalender({
+			kode_kalender: req.body.kode_kalender,
+			email: req.session.userId,
+			file_kalender: req.file.originalname,
+			tahun_ajaran: req.body.tahun_ajaran,
+		});
+		console.log(newKalender);
+		res.redirect("/fakultas/kalender-akademik");
+	}
+);
+
+router.post(
+	"/edit-kalender",
+	isAuthenticated,
+	isAuthorized("fakultas"),
+	upload.single("file_kalender"),
+	async (req, res) => {
+		const editedKalender = await kalenderController.editKalender({
+			kode_kalender: req.body.kode_kalender,
+			file_kalender: req.file.originalname,
+			tahun_ajaran: req.body.tahun_ajaran,
+		});
+		console.log(editedKalender);
+		res.redirect("/fakultas/kalender-akademik");
 	}
 );
 

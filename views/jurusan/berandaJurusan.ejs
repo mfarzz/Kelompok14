@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../stylesheets/jurasanMataKuliah.css">
+    <title>Jurusan</title>
+</head>
+
+<body>
+    <div class="menu">
+        <div class="profile">
+            <div class="profile-icon">
+                <img src="profile_icon.png" alt="Profile Icon">
+            </div>
+            <div class="email">
+                <a href="/prodi">
+                    <%= userEmail %>
+                </a>
+            </div>
+        </div>
+        <div class="detail-menu">
+            <ul>
+                <li><a href="/prodi/matakuliah">Manajemen Mata Kuliah</a></li>
+                <li><a href="">Manajemen Dosen</a></li>
+                <li><a href="">Manajemen Perkuliahan</a></li>
+            </ul>
+        </div>
+        <div class="keluar" id="keluarBtn">Keluar</div>
+    </div>
+    <div class="hasil">
+    </div>
+</body>
+<script src="../javascripts/berandaJurusan.js"></script>
+
+</html>

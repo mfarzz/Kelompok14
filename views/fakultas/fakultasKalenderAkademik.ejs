@@ -18,7 +18,7 @@
 			rel="stylesheet"
 			href="/stylesheets/fakultasKalenderAkademik.css"
 		/>
-		<title>Fakultas</title>
+		<title>Kalender Akademik</title>
 	</head>
 
 	<body>
@@ -58,11 +58,12 @@
 							<a href="/fakultas/perkuliahan">Data Perkuliahan</a>
 						</li>
 					</ul>
-					<a
-						href="/"
-						class="block text-red-600 px-4 mt-32 text-right"
-						>Keluar</a
+					<div
+						id="keluarBtn"
+						class="block text-red-600 px-4 mt-32 text-right cursor-pointer"
 					>
+						Keluar
+					</div>
 				</div>
 			</div>
 			<div class="flex-1 bg-white mx-4 my-5 rounded-xl">
@@ -103,19 +104,13 @@
 													scope="col"
 													class="px-6 py-3 text-center text-xs font-medium uppercase"
 												>
-													Semester
+													Kode Kalender
 												</th>
 												<th
 													scope="col"
 													class="px-6 py-3 text-center text-xs font-medium uppercase"
 												>
-													Tanggal Mulai
-												</th>
-												<th
-													scope="col"
-													class="px-6 py-3 text-center text-xs font-medium uppercase"
-												>
-													Tanggal Selesai
+													Tahun Ajaran
 												</th>
 												<th
 													scope="col"
@@ -126,26 +121,22 @@
 											</tr>
 										</thead>
 										<tbody class="divide-y divide-gray-200">
+											<% kalender.forEach((kalender, index) => { %>
 											<tr>
 												<td
 													class="px-6 py-3 text-center text-xs font-medium uppercase"
 												>
-													A
+													<%= index + 1 %>
 												</td>
 												<td
 													class="px-6 py-3 text-center text-xs font-medium uppercase"
 												>
-													A
+													<%= kalender.kode_kalender %>
 												</td>
 												<td
 													class="px-6 py-3 text-center text-xs font-medium uppercase"
 												>
-													A
-												</td>
-												<td
-													class="px-6 py-3 text-center text-xs font-medium uppercase"
-												>
-													A
+													<%= kalender.tahun_ajaran %>
 												</td>
 												<td
 													class="px-6 py-3 text-center text-xs font-medium uppercase"
@@ -153,11 +144,92 @@
 													<button
 														type="button"
 														class="editBtn p-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200"
+														onclick="openModal('<%=  kalender.kode_kalender %>', '<%= kalender.file_kalender %>', '<%= kalender.tahun_ajaran %>')"
 													>
 														edit
 													</button>
 												</td>
 											</tr>
+											<div
+												class="fixed z-10 inset-0 overflow-y-auto hidden"
+												id="modal<%= kalender.kode_kalender %>"
+											>
+												<div
+													class="flex items-center justify-center min-h-screen"
+												>
+													<div class="fixed inset-0 overflow-hidden">
+														<div
+															class="flex items-center justify-center min-h-screen"
+														>
+															<div
+																class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
+															></div>
+															<div
+																class="relative bg-white rounded-lg w-full max-w-lg p-10 mx-auto"
+															>
+																<div class="flex justify-between items-center">
+																	<h2 class="text-2xl font-bold mx-auto">
+																		Edit Kalender Akademik
+																	</h2>
+																	<button
+																		id="closeModal"
+																		class="text-gray-600 hover:text-gray-800 focus:outline-none"
+																		onclick="closeModal('<%= kalender.kode_kalender %>')"
+																	>
+																		&times;
+																	</button>
+																</div>
+																<div class="p-4">
+																	<div class="max-w-sm space-y-3">
+																		<form
+																			id="editForm"
+																			method="POST"
+																			action="/fakultas/edit-kalender"
+																			class="space-y-3"
+																			enctype="multipart/form-data"
+																		>
+																			<input
+																				type="text"
+																				id="kode_kalender"
+																				class="py-3 px-5 block w-full rounded-full border border-black"
+																				placeholder="Kode Kalender"
+																				value="<%= kalender.kode_kalender %>"
+																				name="kode_kalender"
+																				required
+																			/>
+																			<input
+																				type="file"
+																				id="file_kalender"
+																				class="py-3 px-5 block w-full rounded-full border border-black"
+																				placeholder="File"
+																				name="file_kalender"
+																				required
+																			/>
+																			<input
+																				type="text"
+																				id="akreditasi"
+																				class="py-3 px-5 block w-full rounded-full border border-black"
+																				placeholder="Tahun Ajaran"
+																				value="<%= kalender.tahun_ajaran %>"
+																				name="tahun_ajaran"
+																				required
+																			/>
+																			<button
+																				id="editButton"
+																				type="submit"
+																				class="py-3 px-5 block w-full rounded-full border bg-black text-white mt-20"
+																			>
+																				Submit
+																			</button>
+																		</form>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<% }); %>
 										</tbody>
 									</table>
 								</div>
@@ -180,9 +252,11 @@
 								class="relative bg-white rounded-lg w-full max-w-lg p-10 mx-auto"
 							>
 								<div class="flex justify-between items-center">
-									<h2 class="text-2xl font-bold mx-auto">Tambah Jurusan</h2>
+									<h2 class="text-2xl font-bold mx-auto">
+										Tambah Kalender Akademik
+									</h2>
 									<button
-										id="closeModal"
+										id="closeModals"
 										class="text-gray-600 hover:text-gray-800 focus:outline-none"
 									>
 										&times;
@@ -192,46 +266,31 @@
 									<div class="max-w-sm space-y-3">
 										<form
 											method="POST"
-											action="/fakultas/tambah-prodi"
+											action="/fakultas/tambah-kalender"
 											class="space-y-3"
+											enctype="multipart/form-data"
 										>
 											<input
 												type="text"
 												class="py-3 px-5 block w-full rounded-full border border-black"
-												id="kode_prodi"
-												name="kode_prodi"
-												placeholder="Kode Jurusan"
+												id="kode_kalender"
+												name="kode_kalender"
+												placeholder="Kode Kalender"
 											/>
 											<input
-												type="text"
+												type="file"
 												class="py-3 px-5 block w-full rounded-full border border-black"
-												id="nama_prodi"
-												name="nama_prodi"
-												placeholder="Nama Jurusan"
+												id="file_kalender"
+												name="file_kalender"
+												placeholder="file kalender"
 												required
 											/>
 											<input
 												type="text"
 												class="py-3 px-5 block w-full rounded-full border border-black"
-												id="akreditasi"
-												name="akreditasi"
-												placeholder="Akreditasi"
-												required
-											/>
-											<input
-												type="text"
-												class="py-3 px-5 block w-full rounded-full border border-black"
-												id="email_prodi"
-												name="email_prodi"
-												placeholder="Email Jurusan"
-												required
-											/>
-											<input
-												type="password"
-												class="py-3 px-5 block w-full rounded-full m border border-black"
-												id="password_prodi"
-												name="password_prodi"
-												placeholder="Password"
+												id="tahun_ajaran"
+												name="tahun_ajaran"
+												placeholder="Tahun Ajaran"
 												required
 											/>
 											<button
@@ -249,5 +308,6 @@
 				</div>
 			</div>
 		</div>
+		<script src="/javascripts/fakultasKalender.js"></script>
 	</body>
 </html>
