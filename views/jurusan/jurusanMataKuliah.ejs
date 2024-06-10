@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,11 +14,15 @@
             <div class="profile-icon">
                 <img src="profile_icon.png" alt="Profile Icon">
             </div>
-            <div class="email">si@fti.unand.ac.id</div>
+            <div class="email">
+                <a href="/prodi">
+                    <%= userEmail %>
+                </a>
+            </div>
         </div>
         <div class="detail-menu">
             <ul>
-                <li><a href="">Manajemen Mata Kuliah</a></li>
+                <li><a href="/prodi/matakuliah">Manajemen Mata Kuliah</a></li>
                 <li><a href="">Manajemen Dosen</a></li>
                 <li><a href="">Manajemen Perkuliahan</a></li>
             </ul>
@@ -27,7 +32,7 @@
     <div class="hasil">
         <div class="header">
             <h1>Manajemen Mata Kuliah</h1>
-            <button class="add-btn">+</button>
+            <button class="add-btn" data-toggle="modal" data-target="#addMatkulModal">+</button>
         </div>
         <table>
             <thead>
@@ -39,8 +44,53 @@
                     <th>Aksi</th>
                 </tr>
             </thead>
+            <tbody>
+                <% matkuls.forEach(matkul=> { %>
+                    <tr>
+                        <td>
+                            <%= matkul.kode_matkul %>
+                        </td>
+                        <td>
+                            <%= matkul.nama_matkul %>
+                        </td>
+                        <td>
+                            <%= matkul.semester %>
+                        </td>
+                        <td>
+                            <%= matkul.tahun_ajaran %>
+                        </td>
+                        <td>
+                            <button class="edit-btn" data-toggle="modal" data-target="#editMatkulModal"
+                                data-kode-matkul="<%= matkul.kode_matkul %>"
+                                data-nama-matkul="<%= matkul.nama_matkul %>" data-semester="<%= matkul.semester %>"
+                                data-tahun-ajaran="<%= matkul.tahun_ajaran %>">Edit</button>
+                            <button class="delete-btn" data-toggle="modal" data-target="#deleteMatkulModal"
+                                data-kode-matkul="<%= matkul.kode_matkul %>">Delete</button>
+                        </td>
+                    </tr>
+                    <% }); %>
+            </tbody>
         </table>
     </div>
+
+    <!-- Modal for adding a new matkul -->
+    <div class="modal fade" id="addMatkulModal" tabindex="-1" role="dialog" aria-labelledby="addMatkulModalLabel"
+        aria-hidden="true">
+        <!-- Modal content goes here -->
+    </div>
+
+    <!-- Modal for editing a matkul -->
+    <div class="modal fade" id="editMatkulModal" tabindex="-1" role="dialog" aria-labelledby="editMatkulModalLabel"
+        aria-hidden="true">
+        <!-- Modal content goes here -->
+    </div>
+
+    <!-- Modal for deleting a matkul -->
+    <div class="modal fade" id="deleteMatkulModal" tabindex="-1" role="dialog" aria-labelledby="deleteMatkulModalLabel"
+        aria-hidden="true">
+        <!-- Modal content goes here -->
+    </div>
 </body>
-<script src="../javascripts/jurusanMataKuliah.js"></script>
+<script src="../javascripts/berandaJurusan.js"></script>
+
 </html>
