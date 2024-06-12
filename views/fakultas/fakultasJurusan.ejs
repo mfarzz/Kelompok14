@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<link
+			rel="stylesheet"
+			href="/stylesheets/style.css"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Poppins"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="/stylesheets/fakultasJurusan.css"
+		/>
+		<title>Fakultas</title>
+	</head>
+
+	<body>
+		<div class="flex h-screen bg-black/50">
+			<div class="bg-white w-1/4 flex flex-col my-5 mx-4 rounded-xl">
+				<div class="flex justify-center flex-col text-center my-7">
+					<div
+						class="bg-gray-500 rounded-full w-36 h-36 border-2 mx-auto border-white"
+					></div>
+					<h1 class="underline text-xl">fti@unand.ac.id</h1>
+				</div>
+				<div>
+					<ul class="flex flex-col">
+						<li class="block px-4">
+							Data Master
+							<ul class="flex flex-col m-2">
+								<li class="flex justify-between">
+									<a href="/fakultas">Manajemen Jurusan</a>
+								</li>
+								<li class="flex justify-between">
+									<a href="/fakultas/kalender-akademik"
+										>Manajemen Kalender Akademik</a
+									>
+								</li>
+								<li class="flex justify-between">
+									<a href="/fakultas/pemberitahuan">Manajemen Pemberitahuan</a>
+								</li>
+							</ul>
+						</li>
+						<li class="block py-2 px-4">
+							<a href="/fakultas/data-dosen">Data Dosen</a>
+						</li>
+						<li class="block py-2 px-4">
+							<a href="/fakultas/mata-kuliah">Data Mata Kuliah</a>
+						</li>
+						<li class="block py-2 px-4">
+							<a href="/fakultas/perkuliahan">Data Perkuliahan</a>
+						</li>
+					</ul>
+					<div
+						id="keluarBtn"
+						class="block text-red-600 px-4 mt-32 text-right cursor-pointer"
+					>
+						Keluar
+					</div>
+				</div>
+			</div>
+			<div class="flex-1 bg-white mx-4 my-5 rounded-xl">
+				<div class="flex justify-between items-center p-4">
+					<h1 class="text-3xl">Manajemen Jurusan</h1>
+					<span
+						class="inline-flex justify-center items-center size-[90px] rounded-full"
+					>
+						<button id="openModal">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 512 512"
+								width="32"
+								height="32"
+							>
+								<path
+									d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"
+								/>
+							</svg>
+						</button>
+					</span>
+				</div>
+				<div class="p-4">
+					<div class="flex flex-col">
+						<div class="-m-1.5 overflow-x-auto">
+							<div class="p-1.5 min-w-full inline-block align-middle">
+								<div class="border rounded-lg overflow-hidden border-black">
+									<table class="min-w-full divide-y divide-black">
+										<thead class="divide-y divide-black">
+											<tr class="divide-x divide-black">
+												<th
+													scope="col"
+													class="px-6 py-3 text-center text-xs font-medium uppercase"
+												>
+													Kode Jurusan
+												</th>
+												<th
+													scope="col"
+													class="px-6 py-3 text-center text-xs font-medium uppercase"
+												>
+													Nama Jurusan
+												</th>
+												<th
+													scope="col"
+													class="px-6 py-3 text-center text-xs font-medium uppercase"
+												>
+													Akreditasi
+												</th>
+												<th
+													scope="col"
+													class="px-6 py-3 text-center text-xs font-medium uppercase"
+												>
+													Email Jurusan
+												</th>
+												<th
+													scope="col"
+													class="px-6 py-3 text-center text-xs font-medium uppercase"
+												>
+													Aksi
+												</th>
+											</tr>
+										</thead>
+										<tbody class="divide-y divide-gray-200">
+											<% prodi.forEach((prodi) => { %>
+											<tr>
+												<td
+													class="px-6 py-3 text-center text-xs font-medium uppercase"
+												>
+													<%= prodi.kode_prodi %>
+												</td>
+												<td
+													class="px-6 py-3 text-center text-xs font-medium uppercase"
+												>
+													<%= prodi.nama_prodi %>
+												</td>
+												<td
+													class="px-6 py-3 text-center text-xs font-medium uppercase"
+												>
+													<%= prodi.akreditasi %>
+												</td>
+												<td
+													class="px-6 py-3 text-center text-xs font-medium uppercase"
+												>
+													<%= prodi.email_prodi %>
+												</td>
+												<td
+													class="px-6 py-3 text-center text-xs font-medium uppercase"
+												>
+													<button
+														type="button"
+														class="editBtn p-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200"
+														onclick="openModal('<%= prodi.kode_prodi %>')"
+													>
+														edit
+													</button>
+												</td>
+											</tr>
+											<div
+												class="fixed z-10 inset-0 overflow-y-auto hidden"
+												id="modal<%= prodi.kode_prodi %>"
+											>
+												<div
+													class="flex items-center justify-center min-h-screen"
+												>
+													<div class="fixed inset-0 overflow-hidden">
+														<div
+															class="flex items-center justify-center min-h-screen"
+														>
+															<div
+																class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
+															></div>
+															<div
+																class="relative bg-white rounded-lg w-full max-w-lg p-10 mx-auto"
+															>
+																<div class="flex justify-between items-center">
+																	<h2 class="text-2xl font-bold mx-auto">
+																		Edit Jurusan
+																	</h2>
+																	<button
+																		id="closeModal"
+																		class="text-gray-600 hover:text-gray-800 focus:outline-none"
+																		onclick="closeModal('<%= prodi.kode_prodi %>')"
+																	>
+																		&times;
+																	</button>
+																</div>
+																<div class="p-4">
+																	<div class="max-w-sm space-y-3">
+																		<form
+																			id="editForm"
+																			method="POST"
+																			action="/fakultas/edit-prodi"
+																			class="space-y-3"
+																		>
+																			<input
+																				type="text"
+																				id="kodeProdi"
+																				class="py-3 px-5 block w-full rounded-full border border-black"
+																				placeholder="Kode Jurusan"
+																				value="<%= prodi.kode_prodi %>"
+																				name="kode_prodi"
+																				required
+																			/>
+																			<input
+																				type="text"
+																				id="namaProdi"
+																				class="py-3 px-5 block w-full rounded-full border border-black"
+																				placeholder="Nama Jurusan"
+																				value="<%= prodi.nama_prodi %>"
+																				name="nama_prodi"
+																				required
+																			/>
+																			<input
+																				type="text"
+																				id="akreditasi"
+																				class="py-3 px-5 block w-full rounded-full border border-black"
+																				placeholder="Akreditasi"
+																				value="<%= prodi.akreditasi %>"
+																				name="akreditasi"
+																				required
+																			/>
+																			<input
+																				type="text"
+																				id="emailProdi"
+																				class="py-3 px-5 block w-full rounded-full border border-black"
+																				placeholder="Email Jurusan"
+																				value="<%= prodi.email_prodi %>"
+																				name="email_prodi"
+																				required
+																			/>
+																			<input
+																				type="password"
+																				id="passwordProdi"
+																				class="py-3 px-5 block w-full rounded-full border border-black"
+																				placeholder="Password"
+																				name="password_prodi"
+																				value=""
+																			/>
+																			<button
+																				id="editButton"
+																				type="submit"
+																				class="py-3 px-5 block w-full rounded-full border bg-black text-white mt-20"
+																			>
+																				Submit
+																			</button>
+																		</form>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<% }); %>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div
+				id="myModal"
+				class="fixed z-10 inset-0 overflow-y-auto hidden"
+			>
+				<div class="flex items-center justify-center min-h-screen">
+					<div class="fixed inset-0 overflow-hidden">
+						<div class="flex items-center justify-center min-h-screen">
+							<div
+								class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
+							></div>
+							<div
+								class="relative bg-white rounded-lg w-full max-w-lg p-10 mx-auto"
+							>
+								<div class="flex justify-between items-center">
+									<h2 class="text-2xl font-bold mx-auto">Tambah Jurusan</h2>
+									<button
+										id="closeModals"
+										class="text-gray-600 hover:text-gray-800 focus:outline-none"
+									>
+										&times;
+									</button>
+								</div>
+								<div class="p-4">
+									<div class="max-w-sm space-y-3">
+										<form
+											method="POST"
+											action="/fakultas/tambah-prodi"
+											class="space-y-3"
+										>
+											<input
+												type="text"
+												class="py-3 px-5 block w-full rounded-full border border-black"
+												id="kode_prodi"
+												name="kode_prodi"
+												placeholder="Kode Jurusan"
+											/>
+											<input
+												type="text"
+												class="py-3 px-5 block w-full rounded-full border border-black"
+												id="nama_prodi"
+												name="nama_prodi"
+												placeholder="Nama Jurusan"
+												required
+											/>
+											<input
+												type="text"
+												class="py-3 px-5 block w-full rounded-full border border-black"
+												id="akreditasi"
+												name="akreditasi"
+												placeholder="Akreditasi"
+												required
+											/>
+											<input
+												type="text"
+												class="py-3 px-5 block w-full rounded-full border border-black"
+												id="email_prodi"
+												name="email_prodi"
+												placeholder="Email Jurusan"
+												required
+											/>
+											<input
+												type="password"
+												class="py-3 px-5 block w-full rounded-full m border border-black"
+												id="password_prodi"
+												name="password_prodi"
+												placeholder="Password"
+												required
+											/>
+											<button
+												class="py-3 px-5 block w-full rounded-full border bg-black text-white mt-20"
+												type="submit"
+											>
+												Tambah
+											</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="/javascripts/berandaFakultas.js"></script>
+	</body>
+</html>
