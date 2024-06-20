@@ -11,9 +11,8 @@ module.exports = {
 		extend: {},
 	},
 	plugins: [
-		require("preline/plugin"),
+  		require("preline/plugin"),
 		require("daisyui"),
-		require("preline/plugin"),
 	],
 };
 

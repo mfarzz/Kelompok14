@@ -1,4 +1,4 @@
-const { fakultas, prodi, matkul } = require("../models");
+const { fakultas, prodi, Matkul } = require("../models");
 
 const getProdi = async (email) => {
 	try {
@@ -23,12 +23,12 @@ const getMataKuliah = async (email) => {
 			where: {
 				kode_fakultas: email,
 			},
-			include: matkul, // Include Matkul association
+			include: Matkul, // Include Matkul association
 		});
 
 		// Extract Matkuls from Prodis and include nama_prodi
 		const matkulObjects = prodis.reduce((acc, prodi) => {
-			prodi.matkuls.forEach((matkul) => {
+			prodi.Matkuls.forEach((matkul) => {
 				acc.push({
 					kode_matkul: matkul.kode_matkul,
 					kode_prodi: matkul.kode_prodi,

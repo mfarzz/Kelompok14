@@ -1,7 +1,16 @@
 <div class="menu">
     <div class="profile">
-        <div class="profile-icon">
-            <img src="profile_icon.png" alt="Profile Icon">
+        <div class="profile-picture">
+            <% if (userProdi && userProdi.foto) { %>
+                <img src="/uploads/<%= userProdi.foto %>" alt="Foto Profil">
+                <% } %>
+                    <div class="upload-button">
+                        <form action="upload-profile-picture" method="post" enctype="multipart/form-data">
+                            <input type="file" name="profilePicture" accept="image/*" style="display: none;" id="upload-input"
+                                onchange="this.form.submit()">
+                            <label for="upload-input">+</label>
+                        </form>
+                    </div>
         </div>
         <div class="email">
             <a href="/prodi">

@@ -19,3 +19,11 @@ document.getElementById('keluarBtn').addEventListener('click', function () {
         });
 });
 
+document.getElementById('upload-input').addEventListener('change', function() {
+    var form = document.getElementById('uploadForm');
+    if (this.files.length > 0) {
+        form.submit();
+        form.style.pointerEvents = 'none';
+        form.style.opacity = '0.5';
+    }
+});
