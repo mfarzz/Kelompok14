@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       Dosen.belongsTo(models.prodi, { foreignKey: 'kode_prodi', targetKey: 'kode_prodi' });
       Dosen.hasMany(models.detailperkuliahan, { foreignKey: 'nip_dosen', sourceKey: 'nip_dosen' });
       Dosen.belongsToMany(models.Perkuliahan, { through: models.detailperkuliahan, foreignKey: 'nip_dosen', otherKey: 'kode_perkuliahan' });
-    }
+    } 
   }
   Dosen.init({
     nip_dosen: {

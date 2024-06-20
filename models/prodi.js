@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
             Prodi.hasMany(models.Matkul, { foreignKey: 'kode_prodi'});
         }
     }
+    
     Prodi.init({
         kode_prodi: {
             type: DataTypes.STRING,

@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
             Perkuliahan.belongsToMany(models.Dosen, { through: models.detailperkuliahan, foreignKey: 'kode_perkuliahan', otherKey: 'nip_dosen' }); 
         }
     }
+    
     Perkuliahan.init({
         kode_perkuliahan: {
             type: DataTypes.STRING,

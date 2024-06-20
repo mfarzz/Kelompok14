@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
 			});
 		}
 	}
+	
 	Kalender.init(
 		{
 			kode_kalender: {

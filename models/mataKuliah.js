@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
             Matkul.hasMany(models.Perkuliahan, { foreignKey: 'kode_matkul'});
         }
     }
+    
     Matkul.init({
         kode_matkul: {
             type: DataTypes.STRING,
