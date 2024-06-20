@@ -9,7 +9,34 @@
 </head>
 
 <body>
-    <%- include('sidebar') %>
+    <div class="menu">
+        <div class="profile">
+            <div class="profile-picture">
+                <% if (userProdi && userProdi.foto) { %>
+                    <img src="/uploads/<%= userProdi.foto %>" alt="Foto Profil">
+                    <% } %>
+                        <div class="upload-button">
+                            <form action="prodi/upload-profile-picture" method="post" enctype="multipart/form-data">
+                                <input type="file" name="profilePicture" accept="image/*" style="display: none;"
+                                    id="upload-input" onchange="this.form.submit()">
+                                <label for="upload-input">+</label>
+                            </form>
+                        </div>
+            </div>
+            <div class="email">
+                <a href="/prodi">
+                    <%= userEmail %>
+                </a>
+            </div>
+        </div>
+        <div class="detail-menu">
+            <ul>
+                <li><a href="/prodi/matakuliah" class="matakuliah">Manajemen Mata Kuliah</a></li>
+                <li><a href="/prodi/dosen" class="dosen">Manajemen Dosen</a></li>
+                <li><a href="/prodi/perkuliahan" class="perkuliahan">Manajemen Perkuliahan</a></li>
+            </ul>
+        </div>
+        <div class="keluar" id="keluarBtn">Keluar</div>
     <div class="hasil">
         <h1>Beranda Jurusan <%= userProdi.nama_prodi %> </h1>
     </div>
