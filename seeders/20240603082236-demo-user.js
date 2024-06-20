@@ -40,6 +40,17 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date()
         },
+        {
+          kode_prodi:"TK001",
+          kode_fakultas:"fti@unand.ac.id",
+          email_prodi: "tk@fti.unand.ac.id",
+          nama_prodi: "Teknik Komputer",
+          akreditasi: "A",
+          password_prodi: await bcrypt.hash("1234567", 10),
+          role: "prodi",
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
       ],
       {}
     );

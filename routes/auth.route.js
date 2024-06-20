@@ -1,16 +1,12 @@
-var express = require("express");
+var express = require('express');
 var router = express.Router();
-const authController = require("../controller/auth.controlller");
-const {
-	isAuthenticated,
-	isAuthorized,
-} = require("../middleware/session.middleware");
-const { render } = require("ejs");
+const authController = require('../controller/auth.controlller');
+const { isAuthenticated, isAuthorized} = require('../middleware/session.middleware')
 
-router.get("/", isAuthenticated, isAuthorized);
+router.get('/',isAuthenticated,isAuthorized)
 
-router.post("/login", authController.login);
+router.post('/login', authController.login);
+router.post('/logout', authController.logout);
 router.post("/change-password", authController.changePassword);
-router.post("/logout", authController.logout);
 
 module.exports = router;

@@ -1,123 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1.0"
-		/>
-		<link
-			rel="stylesheet"
-			href="../stylesheets/jurasanMataKuliah.css"
-		/>
-		<title>Jurusan</title>
-	</head>
 
-	<body>
-		<div class="menu">
-			<div class="profile">
-				<div class="profile-icon">
-					<img
-						src="profile_icon.png"
-						alt="Profile Icon"
-					/>
-				</div>
-				<div class="email">si@fti.unand.ac.id</div>
-			</div>
-			<div class="detail-menu">
-				<ul>
-					<li><a href="">Manajemen Mata Kuliah</a></li>
-					<li><a href="">Manajemen Dosen</a></li>
-					<li><a href="">Manajemen Perkuliahan</a></li>
-				</ul>
-			</div>
-			<div
-				class="keluar"
-				id="keluarBtn"
-			>
-				Keluar
-			</div>
-		</div>
-		<div class="hasil">
-			<div class="header">
-				<h1>Manajemen Mata Kuliah</h1>
-				<button class="add-btn">+</button>
-			</div>
-			<table>
-				<thead>
-					<tr>
-						<th>Kode Mata Kuliah</th>
-						<th>Nama Mata Kuliah</th>
-						<th>Semester</th>
-						<th>TA</th>
-						<th>Aksi</th>
-					</tr>
-				</thead>
-			</table>
-		</div>
-		<div
-			id="myModal"
-			class="fixed z-10 inset-0 overflow-y-auto"
-		>
-			<div class="flex items-center justify-center min-h-screen">
-				<div class="fixed inset-0 overflow-hidden">
-					<div class="flex items-center justify-center min-h-screen">
-						<div
-							class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
-						></div>
-						<div
-							class="relative bg-white rounded-lg w-full max-w-lg p-10 mx-auto"
-						>
-							<div class="flex justify-between items-center">
-								<h2 class="text-2xl font-bold mx-auto">Tambah Mata Kuliah</h2>
-								<button
-									id="closeModal"
-									class="text-gray-600 hover:text-gray-800 focus:outline-none"
-								>
-									&times;
-								</button>
-							</div>
-							<div class="p-4">
-								<div class="max-w-sm space-y-3">
-									<input
-										type="text"
-										class="py-3 px-5 block w-full rounded-full border border-black"
-										placeholder="Kode Mata Kuliah"
-										id="kode_matkul"
-									/>
-									<input
-										type="text"
-										class="py-3 px-5 block w-full rounded-full border border-black"
-										placeholder="Nama Mata Kuliah"
-										id="nama_matkul"
-									/>
-									<input
-										type="number"
-										class="py-3 px-5 block w-full rounded-full border border-black"
-										placeholder="Semester"
-										id="semester"
-									/>
-									<input
-										type="text"
-										class="py-3 px-5 block w-full rounded-full border border-black"
-										placeholder="Tahun Ajaran"
-										id="tahun_ajaran"
-									/>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/jurusanMataKuliah.css">
+    <title>Jurusan</title>
+</head>
 
-									<button
-										class="py-3 px-5 block w-full rounded-full border bg-black text-white"
-										id="submitData"
-									>
-										Submit
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</body>
-	<script src="../node_modules/preline/dist/preline.js"></script>
-	<script src="../javascripts/jurusanMataKuliah.js"></script>
+<body>
+    <%- include('sidebar') %>
+    <div class="hasil">
+        <div class="header">
+            <h1>Manajemen Mata Kuliah</h1>
+            <button class="add-btn" data-toggle="modal" data-target="#addMatkulModal">+</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Kode Mata Kuliah</th>
+                    <th>Nama Mata Kuliah</th>
+                    <th>Semester</th>
+                    <th>TA</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% matkuls.forEach(matkul=> { %>
+                    <tr>
+                        <td>
+                            <%= matkul.kode_matkul %>
+                        </td>
+                        <td>
+                            <%= matkul.nama_matkul %>
+                        </td>
+                        <td>
+                            <%= matkul.semester %>
+                        </td>
+                        <td>
+                            <%= matkul.tahun_ajaran %>
+                        </td>
+                        <td>
+                            <div class="aksi">
+                                    <button class="edit-btn" type="button"
+                                        data-nama="<%= matkul.nama_matkul %>"
+                                        data-semester="<%= matkul.semester %>"
+                                        data-ta="<%= matkul.tahun_ajaran %>"
+                                        data-kode="<%= matkul.kode_matkul %>"
+                                    >Edit</button>
+                                <form action="matakuliah/delete-matkul/<%= matkul.kode_matkul %>" method="POST"
+                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus mata kuliah ini?');">
+                                    <button class="delete-btn" data-toggle="modal" type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="overlay" style="display: none;"></div>
+    <div class="popup" style="display: none;">
+        <div class="popup-content">
+            <span class="close-button">&times;</span>
+            <h1>Tambah Mata Kuliah</h1>
+            <div class="form-container">
+                <form action="/prodi/matakuliah/create" method="post" id="matkulForm">
+                    <input type="text" id="kode_matkul" name="kode_matkul" placeholder="Kode Mata Kuliah" required>
+                    <input type="text" id="nama_matkul" name="nama_matkul" placeholder="Nama Mata Kuliah" required>
+                    <input type="text" id="semester" name="semester" placeholder="Semester" required>
+                    <input type="text" id="tahun_ajaran" name="tahun_ajaran" placeholder="TA" required>
+                    <button type="submit" class="btn-tambah-matkul">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay2" style="display: none;"></div>
+    <div class="popup2" style="display: none;">
+        <div class="popup-content2">
+            <span class="close-button2">&times;</span>
+            <h1>Edit Mata Kuliah</h1>
+            <div class="form-container2">
+                <form action="/prodi/matakuliah/update-matkul" method="post" id="matkulForm2">
+                    <input type="text" id="kode_matkul2" name="kode_matkul2" readonly required>
+                    <input type="text" id="nama_matkul2" name="nama_matkul2" required>
+                    <input type="text" id="semester2" name="semester2" required>
+                    <input type="text" id="tahun_ajaran2" name="tahun_ajaran2" required>
+                    <button type="submit" class="btn-edit-matkul">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+    <script src="../javascripts/berandaJurusan.js"></script>
+    <script src="../javascripts/jurusanMataKuliah.js"></script>
 </html>

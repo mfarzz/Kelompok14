@@ -17,31 +17,28 @@ const addBtn2 = document.querySelectorAll('.edit-btn');
 const popup2 = document.querySelector('.popup2');
 const overlay2 = document.querySelector('.overlay2');
 const closeButton2 = document.querySelector('.close-button2');
-    const kodeMatkulInput = document.querySelector('#kode_matkul2');
-    const namaMatkulInput = document.querySelector('#nama_matkul2');
-    const semesterInput = document.querySelector('#semester2');
-    const tahunAjaranInput = document.querySelector('#tahun_ajaran2');
-
-
+const nipDosenInput = document.querySelector('#nip_dosen2');
+const namaDosenInput = document.querySelector('#nama_dosen2');
+const pendidikanInput = document.querySelector('#pendidikan_terakhr2');
+const jabatanInput = document.querySelector('#jabatan2');
 
 addBtn2.forEach(btn => {
     btn.addEventListener('click', function (event) {
 
-        const kodeMatkul = this.dataset.kode;
-        const nama_matkul = this.dataset.nama;
-        const semester = this.dataset.semester;
-        const tahun_ajaran = this.dataset.ta;
+        const nip_dosen = this.dataset.nip;
+        const nama_dosen = this.dataset.nama;
+        const pendidikan_terakhr = this.dataset.pendidikan;
+        const jabatan = this.dataset.jabatan;
 
-        kodeMatkulInput.value = kodeMatkul;
-        namaMatkulInput.value = nama_matkul;
-        semesterInput.value = semester;
-        tahunAjaranInput.value = tahun_ajaran;
-
+        nipDosenInput.value = nip_dosen;
+        namaDosenInput.value = nama_dosen;
+        pendidikanInput.value = pendidikan_terakhr;
+        jabatanInput.value = jabatan;
+    
         popup2.style.display = 'block';
         overlay2.style.display = 'block';
     });
 });
-
 closeButton2.addEventListener('click', function () {
     popup2.style.display = 'none';
     overlay2.style.display = 'none';

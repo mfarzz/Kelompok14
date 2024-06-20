@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/jurusanDosen.css">
+    <title>Jurusan</title>
+</head>
+
+<body>
+    <%- include('sidebar') %>
+    <div class="hasil">
+        <div class="header">
+            <h1>Manajemen Dosen</h1>
+            <button class="add-btn" data-toggle="modal" data-target="#addDosenModal">+</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>NIP</th>
+                    <th>Nama</th>
+                    <th>Pendidikan Terakhir</th>
+                    <th>Jabatan</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% dosens.forEach(dosen=> { %>
+                    <tr>
+                        <td>
+                            <%= dosen.nip_dosen %>
+                        </td>
+                        <td>
+                            <%= dosen.nama_dosen %>
+                        </td>
+                        <td>
+                            <%= dosen.pendidikan_terakhr %>
+                        </td>
+                        <td>
+                            <%= dosen.jabatan %>
+                        </td>
+                        <td>
+                            <div class="aksi">
+                                <button class="edit-btn"
+                                    data-nip="<%= dosen.nip_dosen %>"
+                                    data-nama="<%= dosen.nama_dosen %>"
+                                    data-pendidikan="<%= dosen.pendidikan_terakhr %>"
+                                    data-jabatan="<%= dosen.jabatan %>">Edit</button>
+                                <form action="dosen/delete-dosen/<%= dosen.nip_dosen %>" method="POST"
+                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus dosen ini?');">
+                                    <button class="delete-btn" data-toggle="modal" type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="overlay" style="display: none;"></div>
+    <div class="popup" style="display: none;">
+        <div class="popup-content">
+            <span class="close-button">&times;</span>
+            <h1>Tambah Dosen</h1>
+            <div class="form-container">
+                <form action="/prodi/dosen/create" method="post" id="dosenForm">
+                    <input type="text" id="nip_dosen" name="nip_dosen" placeholder="NIP" required>
+                    <input type="text" id="nama_dosen" name="nama_dosen" placeholder="Nama" required>
+                    <input type="text" id="pendidikan_terakhr" name="pendidikan_terakhr" placeholder="Pendidikan Terakhir" required>
+                    <input type="text" id="jabatan" name="jabatan" placeholder="Jabatan" required>
+                    <button type="submit" class="btn-tambah-dosen">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay2" style="display: none;"></div>
+    <div class="popup2" style="display: none;">
+        <div class="popup-content2">
+            <span class="close-button2">&times;</span>
+            <h1>Edit Dosen</h1>
+            <div class="form-container2">
+                <form action="/prodi/dosen/update-dosen" method="post" id="dosenForm2">
+                    <input type="text" id="nip_dosen2" name="nip_dosen2" required readonly>
+                    <input type="text" id="nama_dosen2" name="nama_dosen2" required readonly>
+                    <input type="text" id="pendidikan_terakhr2" name="pendidikan_terakhr2" required>
+                    <input type="text" id="jabatan2" name="jabatan2" required>
+                    <button type="submit" class="btn-edit-dosen">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+    <script src="../javascripts/berandaJurusan.js"></script>
+    <script src="../javascripts/jurusanDosen.js"></script>
+</html>
