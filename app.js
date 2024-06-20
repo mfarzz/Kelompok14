@@ -6,6 +6,8 @@ var logger = require('morgan');
 var session = require('express-session')
 var SequelizeStore = require('connect-session-sequelize')(session.Store);
 var sequelize = require('./models').sequelize;
+var bodyparser = require("body-parser");
+const fs = require("fs");
 
 var indexRouter = require('./routes/index');
 var fakultasRouter = require('./routes/fakultas.route');
