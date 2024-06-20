@@ -44,12 +44,12 @@
 									>
 								</li>
 								<li class="flex justify-between">
-									<a href="/fakultas/pemberitahuan">Manajemen Pemberitahuan</a>
+									<a href="">Manajemen Pemberitahuan</a>
 								</li>
 							</ul>
 						</li>
 						<li class="block py-2 px-4">
-							<a href="/fakultas/data-dosen">Data Dosen</a>
+							<a href="">Data Dosen</a>
 						</li>
 						<li class="block py-2 px-4">
 							<a href="/fakultas/mata-kuliah">Data Mata Kuliah</a>
@@ -62,7 +62,9 @@
 						id="keluarBtn"
 						class="block text-red-600 px-4 mt-32 text-right cursor-pointer"
 					>
-						Keluar
+						<form action="/auth/logout" method="post">
+							<button type="submit">logout</button>
+						</form>
 					</div>
 				</div>
 			</div>

@@ -44,12 +44,12 @@
 									>
 								</li>
 								<li class="flex justify-between">
-									<a href="/fakultas/pemberitahuan">Manajemen Pemberitahuan</a>
+									<a href="">Manajemen Pemberitahuan</a>
 								</li>
 							</ul>
 						</li>
 						<li class="block py-2 px-4">
-							<a href="/fakultas/data-dosen">Data Dosen</a>
+							<a href="">Data Dosen</a>
 						</li>
 						<li class="block py-2 px-4">
 							<a href="/fakultas/mata-kuliah">Data Mata Kuliah</a>
@@ -62,13 +62,15 @@
 						id="keluarBtn"
 						class="block text-red-600 px-4 mt-32 text-right cursor-pointer"
 					>
-						Keluar
+						<form action="/auth/logout" method="post">
+							<button type="submit">logout</button>
+						</form>
 					</div>
 				</div>
 			</div>
 			<div class="flex-1 bg-white mx-4 my-5 rounded-xl">
 				<div class="flex justify-between items-center p-4 my-3">
-					<h1 class="text-3xl">Manajemen Kalender Akademik</h1>
+					<h1 class="text-3xl">Data Perkuliahan</h1>
 					<span class="inline-flex justify-center items-center">
 						<select
 							class="px-8 py-0.5 block w-full text-sm bg-black text-white rounded-full"
@@ -158,7 +160,7 @@
 												<td
 													class="px-3 py-4 whitespace-nowrap text-sm text-center"
 												>
-													<%= perkuliah.kode_matkul %>
+													<%= perkuliah.Matkul.kode_matkul %>
 												</td>
 												<td
 													class="px-3 py-4 whitespace-nowrap text-sm text-center"
@@ -173,7 +175,9 @@
 												<td
 													class="px-3 py-4 whitespace-nowrap text-sm text-center"
 												>
-													Pak Husnil
+													<% perkuliah.detailperkuliahans.forEach((detail, index)=> { %>
+														<%- index + 1 %>. (<%= detail.nip_dosen %>) <%= detail.Dosen.nama_dosen %> <br>
+													<% }); %>
 												</td>
 												<td
 													class="px-3 py-4 whitespace-nowrap text-sm text-center"
@@ -183,12 +187,12 @@
 												<td
 													class="px-3 py-4 whitespace-nowrap text-sm text-center"
 												>
-													<%= perkuliah.semester %>
+													<%= perkuliah.Matkul.semester %>
 												</td>
 												<td
 													class="px-3 py-4 whitespace-nowrap text-sm text-center"
 												>
-													<%= perkuliah.tahun_ajaran %>
+													<%= perkuliah.Matkul.tahun_ajaran %>
 												</td>
 												<td
 													class="px-3 py-4 whitespace-nowrap text-sm text-center"
@@ -198,7 +202,7 @@
 												<td
 													class="px-3 py-4 whitespace-nowrap text-center text-sm"
 												>
-													<%= perkuliah.matkul.prodi.nama_prodi %>
+													<%= perkuliah.Matkul.prodi.nama_prodi %>
 												</td>
 											</tr>
 											<% }); %>

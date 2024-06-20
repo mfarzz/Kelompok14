@@ -1,5 +1,7 @@
 const { Model, Op, where } = require('sequelize');
 const { Matkul, prodi, Dosen, Perkuliahan, detailperkuliahan } = require('../models');
+const fs = require('fs');
+const path = require('path');
 
 const getProdi = async (req, res) => {
     try {
@@ -31,7 +33,7 @@ const getAllMatkul = async (req, res) => {
         }
 
         const matkuls = await Matkul.findAll({ where: { kode_prodi: userProdi.kode_prodi } });
-        res.render('jurusanMataKuliah', { matkuls, userEmail: req.session.userId });
+        res.render('jurusanMataKuliah', { matkuls, userProdi, userEmail: req.session.userId });
 
     } catch (error) {
         console.error(error);
@@ -103,7 +105,7 @@ const getAllDosen = async (req, res) => {
         }
 
         const dosens = await Dosen.findAll({ where: { kode_prodi: userProdi.kode_prodi } });
-        res.render('jurusanDosen', { dosens, userEmail: req.session.userId });
+        res.render('jurusanDosen', { dosens, userProdi, userEmail: req.session.userId });
 
     } catch (error) {
         console.error(error);
@@ -192,7 +194,7 @@ const getAllPerkuliahan = async(req, res) => {
             ]
         });
 
-        res.render('jurusanPerkuliahan', { perkuliahans, matkuls, dosens, userEmail: req.session.userId });
+        res.render('jurusanPerkuliahan', { perkuliahans, matkuls, dosens, userProdi, userEmail: req.session.userId });
 
     } catch (error) {
         console.error(error);
@@ -360,6 +362,33 @@ const deletePerkuliahan = async (req, res) => {
     }
 };
 
+const uploadProfilePicture = async (req, res) => {
+    const fotoSlug = req.file.filename;
+    try {
+        const userProdi = await prodi.findOne({ where: { email_prodi: req.session.userId } });
+        if (!userProdi) {
+            return res.status(400).send('Kode prodi tidak valid');
+        }
+
+        if (userProdi.foto) {
+            const oldPhotoPath = path.join(__dirname, '../public/uploads', userProdi.foto);
+            fs.unlink(oldPhotoPath, (err) => {
+                if (err) {
+                    console.error('Error deleting old photo:', err);
+                }
+            });
+        }
+
+        userProdi.foto = fotoSlug;
+        await userProdi.save();
+
+        res.redirect('/prodi');
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Terjadi kesalahan pada server' });
+    }
+};
+
 module.exports = {
     getProdi,
     getAllMatkul,
@@ -373,5 +402,6 @@ module.exports = {
     getAllPerkuliahan,
     createPerkuliahan,
     updatePerkuliahan,
-    deletePerkuliahan
+    deletePerkuliahan,
+    uploadProfilePicture
 };

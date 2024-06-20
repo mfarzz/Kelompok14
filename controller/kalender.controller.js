@@ -1,4 +1,4 @@
-const { fakultas, prodi, matkul, kalender } = require("../models");
+const { fakultas, prodi, Matkul, kalender } = require("../models");
 
 const newKalender = async (data) => {
 	try {
