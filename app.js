@@ -11,7 +11,6 @@ var indexRouter = require('./routes/index');
 var fakultasRouter = require('./routes/fakultas.route');
 var jurusanRouter = require('./routes/jurusan.route');
 var authRouter = require('./routes/auth.route');
-var jurusanMatakuliahRoute = require('./routes/jurusanMataKuliah.route');
 
 var app = express();
 
@@ -30,7 +29,7 @@ app.use(session({
   cookie: { maxAge: 24 * 60 * 60 * 1000 }
 }));
 
-sequelize.sync();
+sequelize.sync()
 
 app.set('views',
   [
@@ -50,7 +49,6 @@ app.use('/', indexRouter);
 app.use('/fakultas', fakultasRouter)
 app.use('/prodi', jurusanRouter)
 app.use('/auth', authRouter)
-app.use('/prodi/matakuliah', jurusanMatakuliahRoute)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

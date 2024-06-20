@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/jurusanPerkuliahan.css">
+    <title>Perkuliahan</title>
+</head>
+<body>
+    <%- include('sidebar') %>
+    <div class="hasil">
+        <div class="header">
+            <h1>Manajemen Perkuliahan</h1>
+            <button class="add-btn" data-toggle="modal" data-target="#addPerkuliahanModal">+</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Kode Perkuliahan</th>
+                    <th>Kode Matkul</th>
+                    <th>Nama Kelas</th>
+                    <th>Jadwal Kuliah</th>
+                    <th>Ruang Kuliah</th>
+                    <th>Semester</th>
+                    <th>Tahun Ajaran</th>
+                    <th>Kuota</th>
+                    <th>Dosen Pengampu</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% perkuliahans.forEach(perkuliahan =>{ %>
+                        <tr>
+                            <td><%= perkuliahan.kode_perkuliahan %></td>
+                            <td><%= perkuliahan.Matkul.kode_matkul %></td>
+                            <td><%= perkuliahan.nama_kelas %></td>
+                            <td><%= perkuliahan.jadwal_kuliah %></td>
+                            <td><%= perkuliahan.ruang_kuliah %></td>
+                            <td><%= perkuliahan.Matkul.semester %></td>
+                            <td><%= perkuliahan.Matkul.tahun_ajaran %></td>
+                            <td><%= perkuliahan.kuota %></td>
+                            <td>
+                                <% perkuliahan.detailperkuliahans.forEach((detail, index)=> { %>
+                                    <%- index + 1 %>. (<%= detail.nip_dosen %>) <%= detail.Dosen.nama_dosen %> <br>
+                                <% }); %>
+                            </td>
+                            <td>
+                                <div class="aksi">
+                                    <button class="edit-btn" type="button"
+                                        data-kode="<%= perkuliahan.kode_perkuliahan %>"
+                                        data-matkul="<%= perkuliahan.Matkul.kode_matkul %>"
+                                        data-nama="<%= perkuliahan.nama_kelas %>"
+                                        data-jadwal="<%= perkuliahan.jadwal_kuliah %>"
+                                        data-ruang="<%= perkuliahan.ruang_kuliah %>"
+                                        data-kuota="<%= perkuliahan.kuota %>"
+                                        <% if (perkuliahan.detailperkuliahans.length>= 1) { %>
+                                            data-dosen1="<%= perkuliahan.detailperkuliahans[0].nip_dosen %>"
+                                        <% } %>
+                                        <% if (perkuliahan.detailperkuliahans.length===2) { %>
+                                            data-dosen2="<%= perkuliahan.detailperkuliahans[1].nip_dosen %>"
+                                        <% } %>
+                                    >Edit</button>
+                                    <form action="perkuliahan/delete-perkuliahan/<%= perkuliahan.kode_perkuliahan %>" method="post"
+                                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus perkuliahan ini?');">
+                                        <button class="delete-btn" data-toggle="modal" type="submit">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="overlay" style="display: none;"></div>
+    <div class="popup" style="display: none;">
+        <div class="popup-content">
+            <span class="close-button">&times;</span>
+            <h1>Tambah Perkuliahan</h1>
+            <div class="form-container">
+                <form action="perkuliahan/create" method="post" id="perkuliahanForm">
+                    <div class="form-grid">
+                        <input type="text" id="kode_perkuliahan" name="kode_perkuliahan" placeholder="Kode Perkuliahan" required>
+                        <select name="kode_matkul" id="kode_matkul">
+                            <option value="" disabled selected>Pilih Mata Kuliah</option>
+                            <% matkuls.forEach(matkul=> { %>
+                                <option value="<%= matkul.kode_matkul %>">
+                                    <%= matkul.kode_matkul %> (<%= matkul.nama_matkul %>)
+                                </option>
+                                <% }); %>
+                        </select>
+                        <input type="text" id="nama_kelas" name="nama_kelas" placeholder="Nama Kelas" required>
+                        <input type="text" id="jadwal_kuliah" name="jadwal_kuliah" placeholder="Jadwal Kuliah" required>
+                        <input type="text" id="ruang_kuliah" name="ruang_kuliah" placeholder="Ruang Kuliah" required>
+                        <input type="number" id="kuota" name="kuota" placeholder="Kuota" required>
+                        <select id="nip_dosen1" name="nip_dosen1" >
+                            <option value="" disabled selected>Pilih Dosen Pengampu 1</option>
+                            <% dosens.forEach(dosen=> { %>
+                                <option value="<%= dosen.nip_dosen %>">
+                                    <%= dosen.nip_dosen %> (<%= dosen.nama_dosen %>)
+                                </option>
+                            <% }); %>
+                        </select>
+                        <select id="nip_dosen2" name="nip_dosen2">
+                            <option value="" disabled selected>Pilih Dosen Pengampu 2</option>
+                            <% dosens.forEach(dosen=> { %>
+                                <option value="<%= dosen.nip_dosen %>">
+                                    <%= dosen.nip_dosen %> (<%= dosen.nama_dosen %>)
+                                </option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-tambah-perkuliahan">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay2" style="display: none;"></div>
+    <div class="popup2" style="display: none;">
+        <div class="popup-content2">
+            <span class="close-button2">&times;</span>
+            <h1>Edit Perkuliahan</h1>
+            <div class="form-container2">
+                <form action="perkuliahan/update-perkuliahan" method="post" id="perkuliahanForm2">
+                    <div class="form-grid2">
+                        <input type="text" id="kode_perkuliahan2" name="kode_perkuliahan2" readonly required>
+                        <select name="kode_matkul2" id="kode_matkul2">
+                            <option value="" disabled selected>Pilih Mata Kuliah</option>
+                            <% matkuls.forEach(matkul=> { %>
+                                <option value="<%= matkul.kode_matkul %>" disabled selected>
+                                    <%= matkul.kode_matkul %> (<%= matkul.nama_matkul %>)
+                                </option>
+                                <% }); %>
+                        </select>
+                        <input type="text" id="nama_kelas2" name="nama_kelas2" required>
+                        <input type="text" id="jadwal_kuliah2" name="jadwal_kuliah2" required>
+                        <input type="text" id="ruang_kuliah2" name="ruang_kuliah2" required>
+                        <input type="number" id="kuota2" name="kuota2" required>
+                        <select id="nip_dosen3" name="nip_dosen3">
+                            <option value="" disabled selected>Pilih Dosen Pengampu 1</option>
+                            <% dosens.forEach(dosen=> { %>
+                                <option value="<%= dosen.nip_dosen %>">
+                                    <%= dosen.nip_dosen %> (<%= dosen.nama_dosen %>)
+                                </option>
+                                <% }); %>
+                        </select>
+                        <select id="nip_dosen4" name="nip_dosen4">
+                            <option value="" disabled selected>Pilih Dosen Pengampu 2</option>
+                            <% dosens.forEach(dosen=> { %>
+                                <option value="<%= dosen.nip_dosen %>">
+                                    <%= dosen.nip_dosen %> (<%= dosen.nama_dosen %>)
+                                </option>
+                                <% }); %>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-edit-perkuliahan">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+    <script src="../javascripts/berandaJurusan.js"></script>
+    <script src="../javascripts/jurusanPerkuliahan.js"></script>
+</html>

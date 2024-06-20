@@ -248,14 +248,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      semester: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      tahun_ajaran: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       kuota: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -270,7 +262,7 @@ module.exports = {
       }
     });
 
-    await queryInterface.createTable('detail_perkuliahans', {
+    await queryInterface.createTable('detailperkuliahans', {
       nip_dosen: {
         type: Sequelize.STRING,
         primaryKey: true,
@@ -305,7 +297,7 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('detail_perkuliahans');
+    await queryInterface.dropTable('detailperkuliahans');
     await queryInterface.dropTable('perkuliahans');
     await queryInterface.dropTable('dosens');
     await queryInterface.dropTable('matkuls');

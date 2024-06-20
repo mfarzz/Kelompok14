@@ -4,31 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../stylesheets/jurasanMataKuliah.css">
+    <link rel="stylesheet" href="/stylesheets/jurusanMataKuliah.css">
     <title>Jurusan</title>
 </head>
 
 <body>
-    <div class="menu">
-        <div class="profile">
-            <div class="profile-icon">
-                <img src="profile_icon.png" alt="Profile Icon">
-            </div>
-            <div class="email">
-                <a href="/prodi">
-                    <%= userEmail %>
-                </a>
-            </div>
-        </div>
-        <div class="detail-menu">
-            <ul>
-                <li><a href="/prodi/matakuliah">Manajemen Mata Kuliah</a></li>
-                <li><a href="">Manajemen Dosen</a></li>
-                <li><a href="">Manajemen Perkuliahan</a></li>
-            </ul>
-        </div>
-        <div class="keluar" id="keluarBtn">Keluar</div>
-    </div>
+    <%- include('sidebar') %>
     <div class="hasil">
         <div class="header">
             <h1>Manajemen Mata Kuliah</h1>
@@ -60,12 +41,18 @@
                             <%= matkul.tahun_ajaran %>
                         </td>
                         <td>
-                            <button class="edit-btn" data-toggle="modal" data-target="#editMatkulModal"
-                                data-kode-matkul="<%= matkul.kode_matkul %>"
-                                data-nama-matkul="<%= matkul.nama_matkul %>" data-semester="<%= matkul.semester %>"
-                                data-tahun-ajaran="<%= matkul.tahun_ajaran %>">Edit</button>
-                            <button class="delete-btn" data-toggle="modal" data-target="#deleteMatkulModal"
-                                data-kode-matkul="<%= matkul.kode_matkul %>">Delete</button>
+                            <div class="aksi">
+                                    <button class="edit-btn" type="button"
+                                        data-nama="<%= matkul.nama_matkul %>"
+                                        data-semester="<%= matkul.semester %>"
+                                        data-ta="<%= matkul.tahun_ajaran %>"
+                                        data-kode="<%= matkul.kode_matkul %>"
+                                    >Edit</button>
+                                <form action="matakuliah/delete-matkul/<%= matkul.kode_matkul %>" method="POST"
+                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus mata kuliah ini?');">
+                                    <button class="delete-btn" data-toggle="modal" type="submit">Delete</button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                     <% }); %>
@@ -73,24 +60,40 @@
         </table>
     </div>
 
-    <!-- Modal for adding a new matkul -->
-    <div class="modal fade" id="addMatkulModal" tabindex="-1" role="dialog" aria-labelledby="addMatkulModalLabel"
-        aria-hidden="true">
-        <!-- Modal content goes here -->
+    <div class="overlay" style="display: none;"></div>
+    <div class="popup" style="display: none;">
+        <div class="popup-content">
+            <span class="close-button">&times;</span>
+            <h1>Tambah Mata Kuliah</h1>
+            <div class="form-container">
+                <form action="/prodi/matakuliah/create" method="post" id="matkulForm">
+                    <input type="text" id="kode_matkul" name="kode_matkul" placeholder="Kode Mata Kuliah" required>
+                    <input type="text" id="nama_matkul" name="nama_matkul" placeholder="Nama Mata Kuliah" required>
+                    <input type="text" id="semester" name="semester" placeholder="Semester" required>
+                    <input type="text" id="tahun_ajaran" name="tahun_ajaran" placeholder="TA" required>
+                    <button type="submit" class="btn-tambah-matkul">Submit</button>
+                </form>
+            </div>
+        </div>
     </div>
 
-    <!-- Modal for editing a matkul -->
-    <div class="modal fade" id="editMatkulModal" tabindex="-1" role="dialog" aria-labelledby="editMatkulModalLabel"
-        aria-hidden="true">
-        <!-- Modal content goes here -->
-    </div>
-
-    <!-- Modal for deleting a matkul -->
-    <div class="modal fade" id="deleteMatkulModal" tabindex="-1" role="dialog" aria-labelledby="deleteMatkulModalLabel"
-        aria-hidden="true">
-        <!-- Modal content goes here -->
+    <div class="overlay2" style="display: none;"></div>
+    <div class="popup2" style="display: none;">
+        <div class="popup-content2">
+            <span class="close-button2">&times;</span>
+            <h1>Edit Mata Kuliah</h1>
+            <div class="form-container2">
+                <form action="/prodi/matakuliah/update-matkul" method="post" id="matkulForm2">
+                    <input type="text" id="kode_matkul2" name="kode_matkul2" readonly required>
+                    <input type="text" id="nama_matkul2" name="nama_matkul2" required>
+                    <input type="text" id="semester2" name="semester2" required>
+                    <input type="text" id="tahun_ajaran2" name="tahun_ajaran2" required>
+                    <button type="submit" class="btn-edit-matkul">Submit</button>
+                </form>
+            </div>
+        </div>
     </div>
 </body>
-<script src="../javascripts/berandaJurusan.js"></script>
-
+    <script src="../javascripts/berandaJurusan.js"></script>
+    <script src="../javascripts/jurusanMataKuliah.js"></script>
 </html>
