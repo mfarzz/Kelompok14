@@ -9,8 +9,8 @@
   "dependencies": {
     "@preline/toggle-password": "^2.3.0",
     "bcrypt": "^5.1.1",
-    "connect-session-sequelize": "^7.1.7",
     "body-parser": "^1.20.2",
+    "connect-session-sequelize": "^7.1.7",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "ejs": "^3.1.10",
