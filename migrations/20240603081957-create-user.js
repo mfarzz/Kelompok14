@@ -262,6 +262,7 @@ module.exports = {
       }
     });
 
+
     await queryInterface.createTable('detailperkuliahans', {
       nip_dosen: {
         type: Sequelize.STRING,

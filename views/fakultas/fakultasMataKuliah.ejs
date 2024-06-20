@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>Mata Kuliah</title>
+		<link
+			href="/stylesheets/style.css"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Poppins"
+			rel="stylesheet"
+		/>
+		<link
+			href="/stylesheets/fakultasMataKuliah.css"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<div class="flex h-screen bg-black/50">
+			<div class="bg-white w-1/4 flex flex-col my-5 mx-4 rounded-xl">
+				<div class="flex justify-center flex-col text-center my-7">
+					<div
+						class="bg-gray-500 rounded-full w-36 h-36 border-2 mx-auto border-white"
+					></div>
+					<h1 class="underline text-xl">fti@unand.ac.id</h1>
+				</div>
+				<div>
+					<ul class="flex flex-col">
+						<li class="block px-4">
+							Data Master
+							<ul class="flex flex-col m-2">
+								<li class="flex justify-between">
+									<a href="/fakultas">Manajemen Jurusan</a>
+								</li>
+								<li class="flex justify-between">
+									<a href="/fakultas/kalender-akademik"
+										>Manajemen Kalender Akademik</a
+									>
+								</li>
+								<li class="flex justify-between">
+									<a href="/fakultas/pemberitahuan">Manajemen Pemberitahuan</a>
+								</li>
+							</ul>
+						</li>
+						<li class="block py-2 px-4">
+							<a href="/fakultas/data-dosen">Data Dosen</a>
+						</li>
+						<li class="block py-2 px-4">
+							<a href="/fakultas/mata-kuliah">Data Mata Kuliah</a>
+						</li>
+						<li class="block py-2 px-4">
+							<a href="/fakultas/perkuliahan">Data Perkuliahan</a>
+						</li>
+					</ul>
+					<div
+						id="keluarBtn"
+						class="block text-red-600 px-4 mt-32 text-right cursor-pointer"
+					>
+						Keluar
+					</div>
+				</div>
+			</div>
+			<div class="flex-1 bg-white mx-4 my-5 rounded-xl">
+				<div class="flex justify-between items-center p-4 my-3">
+					<h1 class="text-3xl">Data Mata Kuliah</h1>
+					<span class="inline-flex justify-center items-center">
+						<select
+							class="px-8 py-0.5 block w-full text-sm bg-black text-white rounded-full"
+						>
+							<option selected="">Filter</option>
+						</select>
+					</span>
+				</div>
+				<div class="p-4">
+					<div class="flex flex-col">
+						<div class="-m-1.5 overflow-x-auto">
+							<div class="p-1.5 min-w-full inline-block align-middle">
+								<div class="border rounded-lg overflow-hidden border-black">
+									<table class="min-w-full divide-y divide-black">
+										<thead>
+											<tr class="divide-x divide-black">
+												<th
+													scope="col"
+													class="px-6 py-3 text-center text-xs font-medium uppercase"
+												>
+													Kode Mata Kuliah
+												</th>
+												<th
+													scope="col"
+													class="px-6 py-3 text-center text-xs font-medium uppercase"
+												>
+													Nama Mata Kuliah
+												</th>
+												<th
+													scope="col"
+													class="px-6 py-3 text-center text-xs font-medium uppercase"
+												>
+													Semester
+												</th>
+												<th
+													scope="col"
+													class="px-6 py-3 text-center text-xs font-medium uppercase"
+												>
+													TA
+												</th>
+												<th
+													scope="col"
+													class="px-6 py-3 text-center text-xs font-medium uppercase"
+												>
+													Jurusan
+												</th>
+											</tr>
+										</thead>
+										<tbody class="divide-y divide-gray-200">
+											<% matkul.forEach((matkul) => { %>
+											<tr>
+												<td
+													class="px-6 py-3 text-center text-xs font-medium uppercase"
+												>
+													<%= matkul.kode_matkul %>
+												</td>
+												<td
+													class="px-6 py-3 text-center text-xs font-medium uppercase"
+												>
+													<%= matkul.nama_matkul %>
+												</td>
+												<td
+													class="px-6 py-3 text-center text-xs font-medium uppercase"
+												>
+													<%= matkul.semester %>
+												</td>
+												<td
+													class="px-6 py-3 text-center text-xs font-medium uppercase"
+												>
+													<%= matkul.tahun_ajaran %>
+												</td>
+												<td
+													class="px-6 py-3 text-center text-xs font-medium uppercase"
+												>
+													<%= matkul.nama_prodi %>
+												</td>
+											</tr>
+											<% }) %>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="../node_modules/preline/dist/preline.js"></script>
+	</body>
+</html>
