@@ -371,7 +371,7 @@ const uploadProfilePicture = async (req, res) => {
         }
 
         if (userProdi.foto) {
-            const oldPhotoPath = path.join(__dirname, '../public/uploads', userProdi.foto);
+            const oldPhotoPath = `uploads/${userProdi.foto}`;
             fs.unlink(oldPhotoPath, (err) => {
                 if (err) {
                     console.error('Error deleting old photo:', err);

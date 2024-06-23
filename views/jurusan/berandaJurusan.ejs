@@ -13,7 +13,7 @@
         <div class="profile">
             <div class="profile-picture">
                 <% if (userProdi && userProdi.foto) { %>
-                    <img src="/uploads/<%= userProdi.foto %>" alt="Foto Profil">
+                    <img src="uploads/<%= userProdi.foto %>" alt="Foto Profil">
                     <% } %>
                         <div class="upload-button">
                             <form action="prodi/upload-profile-picture" method="post" enctype="multipart/form-data">
