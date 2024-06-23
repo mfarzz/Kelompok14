@@ -54,19 +54,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use('/uploads',express.static(path.join(__dirname, "uploads")));
 
 app.use('/', indexRouter);
 app.use('/fakultas', fakultasRouter)
 app.use('/prodi', jurusanRouter)
 app.use('/auth', authRouter)
-
-
-const uploadDir = path.join(__dirname, "public", "uploads");
-
-if (!fs.existsSync(uploadDir)) {
-	fs.mkdirSync(uploadDir, { recursive: true });
-}
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
